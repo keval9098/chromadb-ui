@@ -1,7 +1,7 @@
 import chromadb
 client = chromadb.PersistentClient(path="./chroma_data")
 client.list_collections()
-collection = client.get_collection(name="mycollection")
+collection = client.get_collection(name="ontap")
 
 
 collection.add(

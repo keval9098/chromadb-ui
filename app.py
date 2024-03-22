@@ -1,4 +1,5 @@
 from flask import Flask, render_template,request,redirect
+import os
 import sqlite3
 import requests
 import chromadb
@@ -66,3 +67,7 @@ def querydata():
     cols = client.list_collections()
 
     return render_template("query.html", data=data, cols=cols)
+
+if __name__ == '__main__':
+    port = int(os.environ.get('PORT', 5000))
+    app.run(debug=True, port=port)
