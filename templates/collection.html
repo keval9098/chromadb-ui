@@ -1,69 +1,56 @@
-<!DOCTYPE html>
-<html>
-
-<head>
-    <meta charset='utf-8'>
-    <meta http-equiv='X-UA-Compatible' content='IE=edge'>
-    <title>Collection</title>
-    <meta name='viewport' content='width=device-width, initial-scale=1'>
-    <style>
-        .container {
-            padding: 2rem;
-            display: flex;
-            flex-direction: column;
-        }
-
-        table {
-            border-collapse: collapse;
-        }
-
-        th,
-        td {
-            border: 1px solid black;
-            padding: 15px;
-            max-width: 300px;
-        }
-    </style>
-</head>
-
-<body>
-    <div class="container">
-        <a href="/query">Query</a>
-        <a href="/">Home</a>
-        <h2>Collection</h2>
+{% extends "base.html" %}
+{% block sidebar %}
+<ul class="nav flex-column mb-1">
+    <li class="nav-item active">
+        <a href="/" class="nav-link"><i class="bi bi-person"></i>&nbsp;&nbsp; Home</a>
+    </li>
+    <li class="nav-item ">
+        <a href="/query" class="nav-link"><i class="bi bi-search"></i>&nbsp;&nbsp; Query</a>
+    </li>
+</ul>
+{% endblock %}
+{% block main %}
+<div class="d-flex justify-content-between px-4 mt-2">
+    <h3>Chroma DB</h3>
+    <span><b>Collection : {{collection}}</b></span>
+</div>
+<div class="container">
+    <div class="p-4">
+        <!-- <h4>Add Document</h4> -->
         <form action="" method="post">
-            <label for="doc">Document</label>
-            <textarea name="doc" id="doc" cols="30" rows="10"></textarea>
-            <!-- <input type="text" name="doc" id="doc"> -->
-            <label for="docid">ID</label>
-            <input type="text" name="docid" id="docid">
-            <button type="submit">Submit</button>
+            <div class="row">
+                <div class="col">
+                    <div class="mb-3">
+                        <label for="exampleFormControlTextarea1" class="form-label">Document</label>
+                        <textarea class="form-control" id="exampleFormControlTextarea1" rows="5" name="doc"></textarea>
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="mb-3">
+                        <label for="docid" class="form-label">ID</label>
+                        <input type="text" class="form-control" name="docid" id="docid" placeholder="ID">
+                    </div>
+                    <button type="submit" class="btn btn-success">Add new document</button>
+                </div>
+            </div>
         </form>
-
-
-        <b>Total : {{total}}</b>
-        <table>
-            <thead>
-                <th>ID</th>
-                <th>Document</th>
-            </thead>
-
-            <tbody>
-
-                {% for row in data %}
-                <tr>
-                    <td>{{row.0}}</td>
-                    <td>
-                        {{row.1}}
-                        <!-- <pre>{{row.1}}</pre> -->
-                    </td>
-                </tr>
-                {%endfor%}
-            </tbody>
-        </table>
     </div>
-
-
-</body>
-
-</html>
+    <br>
+    <table class="table table-bordered border-secondary">
+        <thead>
+            <th>ID</th>
+            <th>Document</th>
+        </thead>
+        <tbody>
+            {% for row in data %}
+            <tr>
+                <td>{{row.0}}</td>
+                <td>
+                    {{row.1|truncate(150)}}
+                </td>
+            </tr>
+            {%endfor%}
+        </tbody>
+    </table>
+</div>
+{% endblock %}

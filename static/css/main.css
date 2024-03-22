@@ -1,0 +1,210 @@
+:root {
+    --body-back: linear-gradient(rgb(235, 235, 235), rgb(236, 251, 255));
+    --blue: #1e90ff;
+    --white: #ffffff;
+}
+
+.red {
+    color: red;
+}
+
+.purple {
+    color: purple;
+}
+
+.blue {
+    color: blue;
+}
+
+.cyan {
+    color: cyan;
+}
+
+.green {
+    color: green;
+}
+
+.dark,
+.dark body,
+.dark .icon,
+.dark .card,
+.dark svg .dark .offcanvas .navbar-nav .nav-link.active,
+.navbar-nav .show>.nav-link,
+.dark .navbar-nav .nav-link.active,
+.navbar-nav .show>.nav-link {
+    background-image: linear-gradient(rgb(30, 30, 30), rgb(15, 15, 15));
+    color: white;
+    fill: white;
+}
+.dark .btn,
+.dark .navbar-toggler{
+    color: white;
+}
+
+.dark .dropdown-menu,
+.dark .dropdown-item {
+    background-color: #3a3a3a;
+    color: white;
+}
+.dark span{
+    color: rgb(16, 221, 204);
+}
+
+.dark a:hover,
+.dark a:focus {
+    color: rgb(131, 131, 131);
+}
+.dark #sidebarCollapse span{
+    background: rgb(233, 233, 233);
+}
+
+.avatar {
+    border-radius: 50%;
+    box-shadow: inset 0 -3em 3em rgba(0, 0, 0, 0.1), 0 0 0 2px rgb(255, 255, 255), 0.3em 0.3em 1em rgba(0, 0, 0, 0.3);
+}
+
+html[data-theme="green"] {
+    --sidebar: linear-gradient(rgb(0, 56, 27), rgb(0, 0, 0));
+}
+
+html[data-theme="cyan"] {
+    --sidebar: linear-gradient(rgb(4, 62, 71), rgb(0, 0, 0));
+}
+
+html[data-theme="purple"] {
+    --sidebar: linear-gradient(rgb(49, 0, 56), rgb(0, 0, 0));
+}
+
+html[data-theme="red"] {
+    --sidebar: linear-gradient(rgb(56, 0, 0), rgb(0, 0, 0));
+}
+
+html[data-theme="blue"] {
+    --sidebar: linear-gradient(rgb(0, 1, 56), rgb(0, 0, 0));
+}
+
+.logout {
+    font-size: large;
+    padding: 0.4rem 1rem;
+    background-color: #666;
+    border: none;
+    border-radius: 10px;
+    color: white;
+    font-weight: bold;
+
+}
+
+.account {
+    border-radius: 15px;
+
+}
+
+.offcanvas {
+    background-image: var(--sidebar)
+}
+
+body {
+    background-image: var(--body-back)
+}
+
+.nav-link {
+    font-size: 1rem;
+    font-weight: bolder;
+    color: rgb(246, 246, 246);
+
+}
+
+.nav-link:hover {
+    color: #ffffff;
+}
+
+.nav-item {
+    margin-bottom: 8px;
+    padding: 5px 0px;
+
+}
+
+.nav-item.active {
+    border-radius: 10px;
+    background-color: #626262;
+}
+
+.nav-item:hover {
+    border-radius: 10px;
+    background-color: #454545;
+    color: white;
+}
+
+/* label {
+    width: 80px;
+    height: 40px;
+    position: relative;
+    display: block;
+    background: #ebebeb;
+    border-radius: 25px;
+    box-shadow: inset 0px 5px 15px rgba(0, 0, 0, 0.4), inset 0px -5px 15px rgba(255, 255, 255, 0.4);
+    cursor: pointer;
+}
+
+label:after {
+    content: "";
+    width: 30px;
+    height: 30px;
+    position: absolute;
+    top: 5px;
+    left: 5px;
+    background: linear-gradient(180deg, #ffcc89, #d8860b);
+    border-radius: 50px;
+    box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.2);
+} */
+
+input[name="darkmode"] {
+    width: 0;
+    height: 0;
+    visibility: hidden;
+}
+
+input[name="darkmode"]:checked+label {
+    background: #242424;
+}
+
+input[name="darkmode"]:checked+label:after {
+    left: 75px;
+    transform: translateX(-100%);
+    background: linear-gradient(180deg, #777, #3a3a3a);
+}
+
+/* label,
+label:after {
+    transition: 0.3s
+}
+
+label svg {
+    position: absolute;
+    width: 22px;
+    top: 8px;
+    z-index: 100;
+}
+
+label svg.sun {
+    left: 9px;
+    fill: #fff;
+    transition: 0.3s;
+}
+
+label svg.moon {
+    left: 50px;
+    fill: #7e7e7e;
+    transition: 0.3s;
+} */
+
+input[name="darkmode"]:checked+label svg.sun {
+    fill: #7e7e7e;
+}
+
+input[name="darkmode"]:checked+label svg.moon {
+    fill: #fff;
+}
+.form-label{
+    font-weight: bold;
+}

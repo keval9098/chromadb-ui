@@ -1,4 +1,4 @@
-from flask import Flask, render_template,request,redirect
+from flask import Flask, render_template,request,redirect,url_for
 import os
 import sqlite3
 import requests
@@ -9,7 +9,7 @@ client = chromadb.PersistentClient(path="./chroma_data",settings=settins)
 
 con = sqlite3.connect("./chroma_data/chroma.sqlite3", check_same_thread=False)
 
-app = Flask(__name__)
+app = Flask(__name__, static_url_path='/static')
 
 def query(sql):
     cur = con.cursor()
@@ -30,7 +30,7 @@ def collection(name,id):
     col = client.get_collection(name=name)
     total = col.count()
     data = query("SELECT embeddings.embedding_id, embedding_metadata.string_value, segments.collection FROM embeddings INNER JOIN embedding_metadata ON embedding_metadata.id=embeddings.id INNER JOIN segments ON segments.id=embeddings.segment_id WHERE embedding_metadata.key='chroma:document' AND segments.collection='{}' ORDER BY embeddings.created_at DESC LIMIT 50".format(id))
-    return render_template("collection.html", data=data, total=total)
+    return render_template("collection.html", data=data, total=total, collection=name)
 
 @app.route("/collection/<name>/<id>", methods=['POST'])
 def save(name,id):
@@ -42,7 +42,7 @@ def save(name,id):
         metadatas=[{"source": "netapp"}],
         ids=[docid]
     )
-    return redirect("/")
+    return redirect(url_for('collection', name=name, id=id))
 
 @app.route("/query", methods=['GET'])
 def querypage():

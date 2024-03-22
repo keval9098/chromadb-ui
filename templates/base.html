@@ -1,0 +1,58 @@
+<!doctype html>
+<html lang="en" data-theme="green">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>ChromaDB</title>
+    <link rel="shortcut icon" href="/static/img/favicon.ico"/>
+    <link rel="shortcut icon" href="" />
+    <link href="/static/css/bootstrap.css" rel="stylesheet" />
+    <link href="/static/css/style.css" rel="stylesheet" />
+    <link href="/static/css/main.css" rel="stylesheet" />
+    {% block style %}
+    {% endblock %}
+</head>
+
+<body class="d-flex flex-column min-vh-100">
+
+    <nav class="offcanvas offcanvas-start show" tabindex="-1" id="offcanvas" data-bs-keyboard="false"
+        data-bs-backdrop="true" data-bs-scroll="true">
+        <div class="offcanvas-header d-flex justify-content-center">
+            <a href="/"><img src="/static/img/logo.png" alt="" height="70px"></a>
+        </div>
+        <div class="offcanvas-body px-2 d-flex flex-column justify-content-between">
+            {% block sidebar %}
+            {% endblock %}
+        </div>
+    </nav>
+    <main class="container-fluid">
+        <div class="row">
+            <div class="col">
+                <!-- toggler -->
+                <button id="sidebarCollapse" class="float-end" data-bs-toggle="offcanvas" data-bs-target="#offcanvas"
+                    role="button" aria-label="Toggle menu">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </button>
+                {% block main %}
+                {% endblock %}
+            </div>
+        </div>
+    </main>
+    <footer class="container-fluid text-muted border-top mt-auto">
+        <div class="row">
+            <div class="col p-4">
+                Developed by <a href="https://github.com/keval9098">Keval</a>
+            </div>
+        </div>
+    </footer>
+    <script src="/static/js/bundle.js"></script>
+    <script src="/static/js/script.js"></script>
+    {% block scripts %}
+    {% endblock %}
+</body>
+
+</html>
