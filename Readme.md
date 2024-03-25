@@ -1,9 +1,55 @@
-# ChromaDB UI using Flask
+# ChromaDB UI
+
+Chromadb frontend using python flask and Bootstrap.
+
+## Installation
+
+Clone github repository
 
 ```bash
-flask --app app --debug run
+git clone https://github.com/keval9098/chromadb-ui.git
+cd chromadb-ui
 ```
 
-/root/.cache/chroma/onnx_models/all-MiniLM-L6-v2/onnx.tar.gz
+Install required packages
+```bash
+pip install -r requirements.txt
+```
 
-docker run -d -p 8000:8000 -v ./chroma_data:/code/chroma_data -v ./llm:/root/.cache/chroma/ ui:latest
+Run flask server
+```bash
+python app.py
+```
+
+## Docker
+
+Build docker image
+
+```bash
+docker build . -t ui:latest
+```
+
+Run docker image
+
+```bash
+docker run -d -p 8000:8000 ui:latest
+```
+Mount existing database
+
+```bash
+docker run -d -p 8000:8000 -v ./chroma_data:/code/chroma_data ui:latest
+```
+
+## Screenshots
+
+### Homepage
+
+![Homepage](screenshots/chroma.png)
+
+### Collection
+
+![Collection](screenshots/add.png)
+
+### Query
+
+![Query](screenshots/query.png)
