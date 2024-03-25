@@ -21,16 +21,39 @@ def query(sql):
 @app.route("/")
 def index():
     databases = query("SELECT name FROM databases")
-    # print(databases)
     collections = client.list_collections()
     return render_template("index.html", databases=databases, collections=collections)
+
+@app.route("/delete/<name>", methods=['GET'])
+def delete_collection(name):
+    client.delete_collection(name)
+    return redirect("/")
+
+@app.route("/delete_document/<name>/<id>", methods=["GET"])
+def delete_document(name, id):
+    col = client.get_collection(name=name)
+    col.delete(ids=[id])
+    return redirect(url_for("collection", name=name, id=col.id))
+
+
+@app.route("/add", methods=['POST'])
+def add_collection():
+    name = request.form.get("name")
+    try:
+        col = client.create_collection(name)
+        message = {"msg":"Collection created!", "status":"success"}
+    except Exception as e:
+        message={"msg":e, "status":"error"}
+    databases = query("SELECT name FROM databases")
+    collections = client.list_collections()
+    return render_template("index.html", databases=databases, collections=collections, message=message)
 
 @app.route("/collection/<name>/<id>", methods=['GET'])
 def collection(name,id):
     col = client.get_collection(name=name)
     total = col.count()
     data = query("SELECT embeddings.embedding_id, embedding_metadata.string_value, segments.collection FROM embeddings INNER JOIN embedding_metadata ON embedding_metadata.id=embeddings.id INNER JOIN segments ON segments.id=embeddings.segment_id WHERE embedding_metadata.key='chroma:document' AND segments.collection='{}' ORDER BY embeddings.created_at DESC LIMIT 50".format(id))
-    return render_template("collection.html", data=data, total=total, collection=name)
+    return render_template("collection.html", data=data, total=total, col=col)
 
 @app.route("/collection/<name>/<id>", methods=['POST'])
 def save(name,id):

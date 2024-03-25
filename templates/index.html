@@ -12,27 +12,65 @@
 {% block main %}
 <div class="d-flex justify-content-between px-4 mt-2">
     <h3>Chroma DB</h3>
+    {% if message %}
+    <div class="alert {% if message.status == 'success'%}alert-success {%else%}alert-danger{%endif%} alert-dismissible fade show" role="alert">
+        {{message.msg}}
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+    {% endif %}
     <span><b>Database</b> : {{databases.0.0}}</span>
 </div>
 <div class="container mt-5">
-    <div class="row text-center">
-        <h4>Database : {{databases.0.0}}</h4>
+    <div class="d-flex justify-content-between mb-4">
+        <h5>Collections</h5>
+        <button class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#exampleModal">Add New
+            collection</button>
     </div>
-    <table class="table">
+    <!-- <div class="row text-center">
+        <h4>Database : {{databases.0.0}}</h4>
+    </div> -->
+
+    <table class="table table-bordered border-secondary">
         <thead>
             <th>Name</th>
             <th>ID</th>
             <th>MetaData</th>
+            <th>Action</th>
         </thead>
         <tbody>
             {% for col in collections %}
             <tr>
-                <td><a href="/collection/{{col.name}}/{{col.id}}">{{col.name}}</a></td>
+                <td><a href="/collection/{{col.name}}/{{col.id}}" class="link">{{col.name}}</a></td>
                 <td>{{col.id}}</td>
                 <td>{{col.metadata}}</td>
+                <td><a href="/delete/{{col.name}}"><button class="btn btn-sm btn-danger">Delete</button></a></td>
             </tr>
             {%endfor%}
         </tbody>
     </table>
+</div>
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="exampleModalLabel">Add new collection</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form action="/add" method="post" id="add_collection">
+                    <div class="mb-3">
+                        <label for="name" class="form-label">Name</label>
+                        <input type="text" class="form-control" id="name" name="name" placeholder="Collection name"
+                            required>
+                    </div>
+
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="submit" form="add_collection" class="btn btn-primary">Add</button>
+            </div>
+        </div>
+    </div>
 </div>
 {% endblock %}

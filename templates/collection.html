@@ -12,7 +12,7 @@
 {% block main %}
 <div class="d-flex justify-content-between px-4 mt-2">
     <h3>Chroma DB</h3>
-    <span><b>Collection : {{collection}}</b></span>
+    <span><b>Collection : {{col.name}}</b></span>
 </div>
 <div class="container">
     <div class="p-4">
@@ -22,13 +22,13 @@
                 <div class="col">
                     <div class="mb-3">
                         <label for="exampleFormControlTextarea1" class="form-label">Document</label>
-                        <textarea class="form-control" id="exampleFormControlTextarea1" rows="5" name="doc"></textarea>
+                        <textarea class="form-control" id="exampleFormControlTextarea1" rows="5" name="doc" required></textarea>
                     </div>
                 </div>
                 <div class="col">
                     <div class="mb-3">
                         <label for="docid" class="form-label">ID</label>
-                        <input type="text" class="form-control" name="docid" id="docid" placeholder="ID">
+                        <input type="text" class="form-control" name="docid" id="docid" placeholder="ID" required>
                     </div>
                     <button type="submit" class="btn btn-success">Add new document</button>
                 </div>
@@ -40,6 +40,7 @@
         <thead>
             <th>ID</th>
             <th>Document</th>
+            <th>Action</th>
         </thead>
         <tbody>
             {% for row in data %}
@@ -48,6 +49,7 @@
                 <td>
                     {{row.1|truncate(150)}}
                 </td>
+                <td><a href="/delete_document/{{col.name}}/{{row.0}}"><button class="btn btn-sm btn-danger">Delete</button></a></td>
             </tr>
             {%endfor%}
         </tbody>

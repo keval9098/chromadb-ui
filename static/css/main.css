@@ -208,3 +208,7 @@ input[name="darkmode"]:checked+label svg.moon {
 .form-label{
     font-weight: bold;
 }
+.link{
+    color: blue;
+    font-weight: bold;
+}
