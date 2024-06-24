@@ -53,6 +53,7 @@ def collection(name,id):
     col = client.get_collection(name=name)
     total = col.count()
     data = query("SELECT embeddings.embedding_id, embedding_metadata.string_value, segments.collection FROM embeddings INNER JOIN embedding_metadata ON embedding_metadata.id=embeddings.id INNER JOIN segments ON segments.id=embeddings.segment_id WHERE embedding_metadata.key='chroma:document' AND segments.collection='{}' ORDER BY embeddings.created_at DESC LIMIT 50".format(id))
+    print(data)
     return render_template("collection.html", data=data, total=total, col=col)
 
 @app.route("/collection/<name>/<id>", methods=['POST'])
@@ -60,6 +61,7 @@ def save(name,id):
     doc = request.form.get("doc")
     docid = request.form.get("docid")
     collection = client.get_collection(name=name)
+    print(docid, doc)
     collection.add(
         documents=[doc],
         metadatas=[{"source": "netapp"}],
@@ -90,6 +92,17 @@ def querydata():
     cols = client.list_collections()
 
     return render_template("query.html", data=data, cols=cols)
+
+@app.route("/api/collection/<name>/<id>", methods=['POST'])
+def api_collection(name,id):
+    data=request.get_json(silent=True)
+    collection = client.get_collection(name=name)
+    collection.add(
+        documents=[data.get('doc')],
+        metadatas=[data.get('metadata')],
+        ids=[data.get('docid')]
+    )
+    return {"status":"success"}
 
 if __name__ == '__main__':
     port = int(os.environ.get('PORT', 5000))
